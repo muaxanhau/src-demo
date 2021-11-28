@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { StyleSheet, Modal, Text, View, Animated, Easing } from 'react-native'
 import { useSelector } from 'react-redux'
-import { globalLoadingState } from './globalLoadingSlice'
+import { states } from './../index'
 
 // constants
 const RING_SIZE = 80
@@ -184,12 +184,15 @@ const Rings = () => {
 }
 
 // main
-const GlobalLoading = () => {
-  const selectGlobalLoading = useSelector(globalLoadingState)
+const GlobalLoader = () => {
+  // constants
+  const { globalLoaderState } = states
+  const selectGlobalLoader = useSelector(globalLoaderState)
 
+  // render
   return (
     <Modal
-      visible={selectGlobalLoading.enabled}
+      visible={selectGlobalLoader.enabled}
       transparent={true}
       animationType='fade'
     >
@@ -259,4 +262,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default GlobalLoading
+export default GlobalLoader

@@ -1,16 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { reducers } from './../features/index'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from './saga'
-import globalLoadingReducer from '../features/GlobalLoading/globalLoadingSlice'
-import authReducer from '../features/Authentication/authSlice'
 
 const sagaMiddleware = createSagaMiddleware()
 
 export const store = configureStore({
-  reducer: {
-    globalLoading: globalLoadingReducer,
-    auth: authReducer
-  },
+  reducer: reducers,
   middleware: [sagaMiddleware]
 })
 

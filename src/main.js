@@ -1,24 +1,21 @@
 import React from 'react'
-import { SafeAreaView, StatusBar } from 'react-native'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
-import GlobalLoading from './features/GlobalLoading/index'
-import GlobalAlert from './features/GlobalAlert/index'
-import AppNavigator from './navigations/appNavigator'
+import { views } from './features/index'
+import Navigations from './navigations/index'
 
+// constant
+const { GlobalLoader, GlobalAlert } = views
+
+// main
 const Main = () => {
   return (
-    <>
-      <StatusBar />
-      <Provider store={store}>
-        <GlobalLoading />
-        <GlobalAlert />
+    <Provider store={store}>
+      <GlobalLoader />
+      <GlobalAlert />
 
-        <SafeAreaView style={{ flex: 1 }}>
-          <AppNavigator />
-        </SafeAreaView>
-      </Provider>
-    </>
+      <Navigations />
+    </Provider>
   )
 }
 

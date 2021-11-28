@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { StyleSheet, View, Text, Easing, Animated } from 'react-native'
-import Styles from './../../constants/styles'
+import { Styles } from '../../constants/index'
 
 // contants
 const { padding, width, height } = Styles
@@ -9,9 +9,11 @@ const LOGO_DURATION = 2000
 
 // main
 const Saver = () => {
+  // constants
   const logoAnimatedValueX = useRef(new Animated.Value(0)).current
   const logoAnimatedValueY = useRef(new Animated.Value(0)).current
 
+  // functions
   const moveLogo = () => {
     Animated.loop(
       Animated.sequence([
@@ -58,10 +60,12 @@ const Saver = () => {
     outputRange: [0, height - LOGO_CONTAINER_SIZE]
   })
 
+  // effects
   useEffect(() => {
     moveLogo()
   }, [])
 
+  // render
   return (
     <View style={{ flex: 1, backgroundColor: '#000' }}>
       <Animated.View

@@ -2,17 +2,7 @@ import { Dimensions, StatusBar } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
 
-export const Colors = {
-  no1: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  no2: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  no3: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  no4: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  no5: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  no6: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  no7: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`
-}
-
-export default Styles = {
+const Styles = {
   statusBarHeight: StatusBar.currentHeight,
   width,
   height,
@@ -26,3 +16,5 @@ export default Styles = {
   borderRadius: 15,
   borderRadiusMedium: 30
 }
+
+export default Styles

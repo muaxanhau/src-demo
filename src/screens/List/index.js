@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import {
   StyleSheet,
   View,
@@ -7,10 +7,10 @@ import {
   Animated,
   Image,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  TouchableHighlight
+  TouchableWithoutFeedback
 } from 'react-native'
-import Styles from './../../constants/styles'
+import { useNavigation } from '@react-navigation/native'
+import { DummyData, NameScreen, Styles } from '../../constants/index'
 import { Swipeable } from 'react-native-gesture-handler'
 
 // constants
@@ -26,138 +26,16 @@ const {
   fontSize,
   fontSizeMedium
 } = Styles
+const listData = DummyData.listListScreen
 const ITEM_HEIGHT = 200
-
-// fake data
-const DATA = [
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  },
-  {
-    name: 'Bánh xèo miền quê',
-    description: 'Được tạo thành từ bàn tay miền dân dã...',
-    image:
-      'https://cdn.daotaobeptruong.vn/wp-content/uploads/2020/01/banh-xeo-mien-tay.jpg'
-  }
-]
 
 // elements
 
 // main
-const List = ({ navigation }) => {
+const List = () => {
+  const navigation = useNavigation()
   const scrollY = useRef(new Animated.Value(0)).current
-  const swipeRefs = useRef([])
+  const swipeItemsRef = useRef([])
 
   return (
     <View style={styles.container}>
@@ -174,14 +52,14 @@ const List = ({ navigation }) => {
           ],
           { useNativeDriver: true }
         )}
-        data={DATA}
+        data={listData}
         keyExtractor={(_, index) => index.toString()}
         contentContainerStyle={{
           paddingVertical
         }}
         snapToInterval={ITEM_HEIGHT + gap}
         onScrollBeginDrag={event => {
-          swipeRefs.current.forEach(item => item.close())
+          swipeItemsRef.current.forEach(item => item.close())
         }}
         renderItem={({ item, index }) => {
           const realHeight = ITEM_HEIGHT + gap
@@ -198,12 +76,12 @@ const List = ({ navigation }) => {
 
           return (
             <TouchableWithoutFeedback
-              onPress={() => navigation.navigate('Detail')}
+              onPress={() => navigation.navigate(NameScreen.detail)}
             >
               <View>
                 <Swipeable
                   ref={element => {
-                    swipeRefs.current[index] = element
+                    swipeItemsRef.current[index] = element
                   }}
                   friction={2}
                   renderRightActions={(progress, dragX) => {
@@ -222,7 +100,7 @@ const List = ({ navigation }) => {
                       >
                         <TouchableOpacity
                           style={{ marginBottom: gap }}
-                          onPress={() => swipeRefs.current[index].close()}
+                          onPress={() => swipeItemsRef.current[index].close()}
                         >
                           <View
                             style={{
@@ -239,7 +117,7 @@ const List = ({ navigation }) => {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                          onPress={() => swipeRefs.current[index].close()}
+                          onPress={() => swipeItemsRef.current[index].close()}
                         >
                           <View
                             style={{

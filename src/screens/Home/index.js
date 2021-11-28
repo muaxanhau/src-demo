@@ -1,42 +1,54 @@
 import React from 'react'
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { NameScreen } from './../../constants/index'
 import { useDispatch } from 'react-redux'
-import { authActions } from './../../features/Authentication/authSlice'
+import { actions } from './../../features/index'
 
-const Home = ({ navigation }) => {
+// constants
+
+// main
+const Home = () => {
+  // constants
+  const navigation = useNavigation()
+  const { authenticationActions } = actions
   const dispatch = useDispatch()
 
+  // effects
+
+  // handles
+  const handleLogin = () => {
+    dispatch(
+      authenticationActions.login({
+        data: { username: 'thinh', password: '123456' },
+        callback: {
+          onSuccess: () => {
+            navigation.navigate(NameScreen.list)
+          },
+          onError: () => {}
+        }
+      })
+    )
+  }
+
+  // render
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home</Text>
-      <Button
-        title='Login'
-        onPress={() => {
-          dispatch(
-            authActions.login({
-              data: { username: 'thinh', password: '123456' },
-              callback: {
-                onSuccess: () => {
-                  navigation.navigate('List')
-                },
-                onError: () => {
-                  // Alert.alert('Thông báo', 'Đăng nhập thất bại')
-                }
-              }
-            })
-          )
-        }}
-      />
+      <Text style={{ fontSize: 30 }}>Home</Text>
+
+      <TouchableOpacity onPress={handleLogin} style={{ marginTop: 30 }}>
+        <Text>Login</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('Saver')}
+        onPress={() => navigation.navigate(NameScreen.saver)}
         style={{ marginTop: 30 }}
       >
         <Text>Saver</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate('Screen3')}
+        onPress={() => navigation.navigate(NameScreen.screen3)}
         style={{ marginTop: 30 }}
       >
         <Text>Test Carousel</Text>
@@ -51,9 +63,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'cyan',
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  text: {
-    fontSize: 30
   }
 })
 
