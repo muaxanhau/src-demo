@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
 import { actions } from './../../features/index'
-
-// constants
 
 // main
 const Detail = () => {
   // constants
   const { callPureApiActions } = actions
-  const navigation = useNavigation()
   const dispatch = useDispatch()
 
   // effects

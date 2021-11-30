@@ -1,13 +1,11 @@
 import { all, fork, takeLeading } from 'redux-saga/effects'
-import { actions } from './../index'
+import { callPureApiActions } from './slice'
 
 // =========================================================================
 function * workExample (action) {
   console.log(action.payload)
 }
 function * watchExample (action) {
-  const { callPureApiActions } = actions
-
   yield takeLeading([callPureApiActions.example().type], workExample)
 }
 

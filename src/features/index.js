@@ -9,9 +9,6 @@ import globalLoaderReducer, {
   globalLoaderActions
 } from './GlobalLoader/slice'
 
-// global alert
-import GlobalAlert from './GlobalAlert/index'
-
 // authentication
 import authenticationReducer, {
   authenticationState,
@@ -40,8 +37,12 @@ const actions = {
 }
 // views ======================================================================
 const views = {
-  GlobalLoader,
-  GlobalAlert
+  GlobalLoader
 }
 
-export { reducers, sagas, states, actions, views }
+export {
+  // reducers, sagas,
+  states,
+  actions,
+  views
+}

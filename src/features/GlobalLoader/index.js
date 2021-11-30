@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { StyleSheet, Modal, Text, View, Animated, Easing } from 'react-native'
 import { useSelector } from 'react-redux'
-import { states } from './../index'
+import { globalLoaderState } from './slice'
 
 // constants
 const RING_SIZE = 80
@@ -186,7 +186,6 @@ const Rings = () => {
 // main
 const GlobalLoader = () => {
   // constants
-  const { globalLoaderState } = states
   const selectGlobalLoader = useSelector(globalLoaderState)
 
   // render
