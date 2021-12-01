@@ -33,10 +33,12 @@ const ITEM_HEIGHT = 200
 
 // main
 const List = () => {
+  // constants
   const navigation = useNavigation()
   const scrollY = useRef(new Animated.Value(0)).current
   const swipeItemsRef = useRef([])
 
+  // render
   return (
     <View style={styles.container}>
       <Animated.FlatList

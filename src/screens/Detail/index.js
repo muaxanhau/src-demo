@@ -26,13 +26,13 @@ const Detail = () => {
         },
         callback: {
           onSuccess: response => {
-            console.log('từ view')
+            console.log('success từ view')
           },
           onError: error => {
-            console.log('từ view')
+            console.log('error từ view')
           },
-          onFinally: data => {
-            console.log('từ view')
+          onFinally: () => {
+            console.log('finally từ view')
           }
         }
       })

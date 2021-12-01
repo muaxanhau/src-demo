@@ -10,6 +10,7 @@ const imagesSource = DummyData.imagesScreen3
 
 // main
 const Screen3 = () => {
+  // constants
   const scrollX = useRef(new Animated.Value(0)).current
 
   // render

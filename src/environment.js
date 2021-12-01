@@ -14,6 +14,6 @@ const production = {
   status: ''
 }
 
-const baseUrl = development.baseUrl
+const baseUrlApi = development.baseUrl
 
-export { baseUrl }
+export { baseUrlApi }

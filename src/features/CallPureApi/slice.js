@@ -10,13 +10,13 @@ const callPureApiSlice = createSlice({
       // mô tả api
       // action.payload có cấu trúc
       // {
-      //   data: {},
-      //   params: {},
-      //   headers: {},
+      //   data: {},                    null?
+      //   params: {},                  null?
+      //   headers: {},                 null?
       //   callback: {
-      //     onSuccess: response => {},
-      //     onError: error => {},
-      //     onFinally: data => {}
+      //     onSuccess: response => {}, null?
+      //     onError: error => {},      null?
+      //     onFinally: data => {}      null?
       //   }
       // }
     }

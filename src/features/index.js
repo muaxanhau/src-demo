@@ -1,7 +1,3 @@
-// call pure api
-import callPureApiReducer, { callPureApiActions } from './CallPureApi/slice'
-import callPureApiSaga from './CallPureApi/saga'
-
 // global loader
 import GlobalLoader from './GlobalLoader/index'
 import globalLoaderReducer, {
@@ -15,6 +11,10 @@ import authenticationReducer, {
   authenticationActions
 } from './Authentication/slice'
 import authenticationSaga from './Authentication/saga'
+
+// call pure api
+import callPureApiReducer, { callPureApiActions } from './CallPureApi/slice'
+import callPureApiSaga from './CallPureApi/saga'
 
 // reducers ===================================================================
 const reducers = {
@@ -40,9 +40,4 @@ const views = {
   GlobalLoader
 }
 
-export {
-  // reducers, sagas,
-  states,
-  actions,
-  views
-}
+export { reducers, sagas, states, actions, views }

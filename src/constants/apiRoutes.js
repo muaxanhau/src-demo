@@ -1,7 +1,7 @@
-import { baseUrl } from './../environment'
+import { baseUrlApi } from './../environment'
 
 const ApiRoutes = {
-  baseUrl,
+  baseUrl: baseUrlApi,
   get: {
     example: 'category/get-something/abc-xyz'
   },

@@ -22,10 +22,11 @@ const Home = () => {
       authenticationActions.login({
         data: { username: 'thinh', password: '123456' },
         callback: {
-          onSuccess: () => {
+          onSuccess: response => {
             navigation.navigate(NameScreen.list)
           },
-          onError: () => {}
+          onError: error => {},
+          onFinally: () => {}
         }
       })
     )

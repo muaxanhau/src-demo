@@ -1,20 +1,19 @@
 import React from 'react'
-import { Provider } from 'react-redux'
-import { store } from './app/store'
-import { views } from './features/index'
+import AppProvider from './app/index'
 import Navigations from './navigations/index'
+import { views } from './features/index'
 
 const Main = () => {
   // constant
   const { GlobalLoader } = views
 
-  // main
+  // render
   return (
-    <Provider store={store}>
-      <GlobalLoader />
-
+    <AppProvider>
       <Navigations />
-    </Provider>
+
+      <GlobalLoader />
+    </AppProvider>
   )
 }
 

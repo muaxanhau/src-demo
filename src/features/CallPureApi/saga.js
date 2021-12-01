@@ -3,7 +3,10 @@ import { callPureApiActions } from './slice'
 
 // =========================================================================
 function * workExample (action) {
-  console.log(action.payload)
+  const { data, params, headers, callback } = action.payload
+  callback.onSuccess?.()
+  callback.onError?.()
+  callback.onFinally?.()
 }
 function * watchExample (action) {
   yield takeLeading([callPureApiActions.example().type], workExample)
