@@ -19,7 +19,7 @@ const {
   padding,
   paddingHorizontal,
   paddingVertical,
-  gap,
+  itemSpacing,
   borderRadius,
   width,
   height,
@@ -59,12 +59,12 @@ const List = () => {
         contentContainerStyle={{
           paddingVertical
         }}
-        snapToInterval={ITEM_HEIGHT + gap}
+        snapToInterval={ITEM_HEIGHT + itemSpacing}
         onScrollBeginDrag={event => {
           swipeItemsRef.current.forEach(item => item.close())
         }}
         renderItem={({ item, index }) => {
-          const realHeight = ITEM_HEIGHT + gap
+          const realHeight = ITEM_HEIGHT + itemSpacing
           const inputRange = [
             0,
             realHeight * index,
@@ -101,7 +101,7 @@ const List = () => {
                         }}
                       >
                         <TouchableOpacity
-                          style={{ marginBottom: gap }}
+                          style={{ marginBottom: itemSpacing }}
                           onPress={() => swipeItemsRef.current[index].close()}
                         >
                           <View
@@ -141,7 +141,7 @@ const List = () => {
                   <Animated.View
                     style={{
                       marginHorizontal: paddingHorizontal,
-                      marginBottom: gap,
+                      marginBottom: itemSpacing,
                       height: ITEM_HEIGHT,
                       backgroundColor: 'rgba(225,225,225,1)',
                       borderRadius,
@@ -181,7 +181,10 @@ const List = () => {
             style={{
               height:
                 height -
-                (ITEM_HEIGHT + gap + paddingVertical * 2 + statusBarHeight)
+                (ITEM_HEIGHT +
+                  itemSpacing +
+                  paddingVertical * 2 +
+                  statusBarHeight)
             }}
           ></View>
         )}

@@ -1,6 +1,8 @@
+import { versionApp } from './../config'
+
 const DefaultValues = {
   nameApp: 'App Demo',
-  versionApp: '1.0.0'
+  versionApp
 }
 
 export default DefaultValues

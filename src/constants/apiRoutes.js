@@ -1,4 +1,4 @@
-import { baseUrlApi } from './../environment'
+import { baseUrlApi } from './../config'
 
 const ApiRoutes = {
   baseUrl: baseUrlApi,

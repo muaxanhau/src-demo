@@ -10,44 +10,63 @@ const LOGO_DURATION = 2000
 // main
 const Saver = () => {
   // constants
-  const logoAnimatedValueX = useRef(new Animated.Value(0)).current
-  const logoAnimatedValueY = useRef(new Animated.Value(0)).current
+  const randomPositionX = useRef(Math.random()).current
+  const randomPositionY = useRef(Math.random()).current
+
+  const logoAnimatedValueX = useRef(new Animated.Value(randomPositionX)).current
+  const logoAnimatedValueY = useRef(new Animated.Value(randomPositionY)).current
 
   // functions
   const moveLogo = () => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(logoAnimatedValueX, {
-          toValue: 1,
-          duration: LOGO_DURATION,
-          easing: Easing.linear,
-          useNativeDriver: true
-        }),
-        Animated.timing(logoAnimatedValueX, {
-          toValue: 0,
-          duration: LOGO_DURATION,
-          easing: Easing.linear,
-          useNativeDriver: true
-        })
-      ])
-    ).start()
+    Animated.sequence([
+      Animated.timing(logoAnimatedValueX, {
+        toValue: 1,
+        duration: LOGO_DURATION * (1 - randomPositionX),
+        easing: Easing.linear,
+        useNativeDriver: true
+      }),
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(logoAnimatedValueX, {
+            toValue: 0,
+            duration: LOGO_DURATION,
+            easing: Easing.linear,
+            useNativeDriver: true
+          }),
+          Animated.timing(logoAnimatedValueX, {
+            toValue: 1,
+            duration: LOGO_DURATION,
+            easing: Easing.linear,
+            useNativeDriver: true
+          })
+        ])
+      )
+    ]).start()
 
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(logoAnimatedValueY, {
-          toValue: 1,
-          duration: LOGO_DURATION * (height / width),
-          easing: Easing.linear,
-          useNativeDriver: true
-        }),
-        Animated.timing(logoAnimatedValueY, {
-          toValue: 0,
-          duration: LOGO_DURATION * (height / width),
-          easing: Easing.linear,
-          useNativeDriver: true
-        })
-      ])
-    ).start()
+    Animated.sequence([
+      Animated.timing(logoAnimatedValueY, {
+        toValue: 1,
+        duration: LOGO_DURATION * (height / width) * (1 - randomPositionY),
+        easing: Easing.linear,
+        useNativeDriver: true
+      }),
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(logoAnimatedValueY, {
+            toValue: 0,
+            duration: LOGO_DURATION * (height / width),
+            easing: Easing.linear,
+            useNativeDriver: true
+          }),
+          Animated.timing(logoAnimatedValueY, {
+            toValue: 1,
+            duration: LOGO_DURATION * (height / width),
+            easing: Easing.linear,
+            useNativeDriver: true
+          })
+        ])
+      )
+    ]).start()
   }
 
   const translateX = logoAnimatedValueX.interpolate({

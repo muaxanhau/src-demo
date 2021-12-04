@@ -1,4 +1,5 @@
 import React from 'react'
+import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NameScreen } from './../../constants/index'
@@ -35,6 +36,7 @@ const Home = () => {
   // render
   return (
     <View style={styles.container}>
+      {/* <StatusBar style='dark' /> */}
       <Text style={{ fontSize: 30 }}>Home</Text>
 
       <TouchableOpacity onPress={handleLogin} style={{ marginTop: 30 }}>
