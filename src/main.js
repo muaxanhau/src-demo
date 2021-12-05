@@ -1,16 +1,16 @@
 import React from 'react'
 import AppProvider from './app/index'
-import Navigations from './navigations/index'
+import AppNavigator from './navigation/index'
 import { views } from './features/index'
 
 const Main = () => {
-  // constant
+  // constants
   const { GlobalLoader } = views
 
   // render
   return (
     <AppProvider>
-      <Navigations />
+      <AppNavigator />
 
       <GlobalLoader />
     </AppProvider>

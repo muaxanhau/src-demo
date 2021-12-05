@@ -1,13 +1,13 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import Stack from './Stack/index'
+import Stacks from './Stacks/index'
 
-const Navigations = () => {
+const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack />
+      <Stacks />
     </NavigationContainer>
   )
 }
 
-export default Navigations
+export default AppNavigator

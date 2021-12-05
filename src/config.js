@@ -1,5 +1,6 @@
 const app = {
   version: '1.0.0',
+  description: '',
   note: ''
 }
 const versionApp = app.version

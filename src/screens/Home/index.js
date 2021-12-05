@@ -56,6 +56,13 @@ const Home = () => {
       >
         <Text>Test Carousel</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate(NameScreen.mainTab)}
+        style={{ marginTop: 30 }}
+      >
+        <Text>Main Tab</Text>
+      </TouchableOpacity>
     </View>
   )
 }
