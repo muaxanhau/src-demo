@@ -32,7 +32,7 @@ const Screen2 = () => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'purple'
+        backgroundColor: 'violet'
       }}
     >
       <Text>Sreen 2</Text>
@@ -72,8 +72,6 @@ const Screen4 = () => {
 const COLOR = '#C8BFE7'
 const HEIGHT_BAR = 60
 const SIZE_ICON = 30
-const MARGIN_BAR = 16
-const BORDER_RADIUS_BAR = 8
 
 const TabChild = ({ descriptors, state, navigation, route, index }) => {
   // constants
@@ -91,6 +89,9 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
 
   const isFocused = state.index === index
 
+  const translateY = useRef(new Animated.Value(0)).current
+
+  // handles
   const onPress = () => {
     const event = navigation.emit({
       type: 'tabPress',
@@ -112,7 +113,22 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
   }
 
   // effect
-  useEffect(() => {}, [isFocused])
+  useEffect(() => {
+    isFocused &&
+      Animated.spring(translateY, {
+        toValue: -((HEIGHT_BAR - SIZE_ICON) / 2 + SIZE_ICON / 2),
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }).start()
+    !isFocused &&
+      Animated.timing(translateY, {
+        toValue: 0,
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }).start()
+  }, [isFocused])
 
   // render
   return (
@@ -126,26 +142,48 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
       style={{ flex: 1 }}
     >
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Image
-          style={{ position: 'absolute' }}
+        <Animated.Image
           source={isFocused ? iconFocused : iconNone}
           resizeMode='cover'
-          style={{ width: SIZE_ICON, height: SIZE_ICON }}
+          style={{
+            position: 'absolute',
+            width: SIZE_ICON,
+            height: SIZE_ICON,
+            transform: [{ translateY }]
+          }}
         />
-        <View style={{ overflow: 'hidden', backgroundColor: 'red' }}>
-          <Text style={{ color: '#673ab7', transform: [{ translateY: 0 }] }}>
-            {label}
-          </Text>
-        </View>
+        <Animated.Text
+          style={{
+            color: '#673ab7',
+            transform: [
+              {
+                translateY: translateY.interpolate({
+                  inputRange: [
+                    -((HEIGHT_BAR - SIZE_ICON) / 2 + SIZE_ICON / 2),
+                    0
+                  ],
+                  outputRange: [HEIGHT_BAR / 4, HEIGHT_BAR]
+                })
+              }
+            ],
+            opacity: translateY.interpolate({
+              inputRange: [-((HEIGHT_BAR - SIZE_ICON) / 2 + SIZE_ICON / 2), 0],
+              outputRange: [1, 0]
+            })
+          }}
+        >
+          {label}
+        </Animated.Text>
       </View>
     </TouchableOpacity>
   )
 }
+
 const TabBar = props => {
   //constants
   const { state, descriptors, navigation } = props
 
-  const widthBar = Styles.width - MARGIN_BAR * 2
+  const widthBar = Styles.width
   const totalTab = Object.keys(descriptors).length
   const [indexFocused, setIndexFocused] = useState(0)
   const translateX = useRef(new Animated.Value(0)).current
@@ -178,9 +216,9 @@ const TabBar = props => {
         flexDirection: 'row',
         height: HEIGHT_BAR,
         position: 'absolute',
-        bottom: MARGIN_BAR,
-        left: MARGIN_BAR,
-        right: MARGIN_BAR
+        bottom: 0,
+        left: 0,
+        right: 0
       }}
     >
       <View
@@ -190,14 +228,13 @@ const TabBar = props => {
           left: 0,
           right: 0,
           bottom: 0,
-          borderRadius: BORDER_RADIUS_BAR,
           overflow: 'hidden'
         }}
       >
         <Animated.View
           style={{
             flexDirection: 'row',
-            height: 30,
+            height: HEIGHT_BAR / 2,
             width: widthBar * 2 - widthBar / totalTab,
             transform: [{ translateX }],
             position: 'absolute',
@@ -206,16 +243,6 @@ const TabBar = props => {
           }}
         >
           <View style={{ flexGrow: 1, backgroundColor: COLOR }} />
-          {/* <View>
-            <View
-              style={{
-                position: 'absolute',
-                width: SIZE_ICON * 1.5,
-                aspectRatio: 1,
-                borderRadius: (SIZE_ICON * 1.5) / 2,
-                backgroundColor: 'red'
-              }}
-            /> */}
           <Image
             source={Images.tabBarPiece}
             resizeMode='cover'
@@ -224,7 +251,6 @@ const TabBar = props => {
               width: (HEIGHT_BAR / 2) * (7 / 3)
             }}
           />
-          {/* </View> */}
           <View style={{ flexGrow: 1, backgroundColor: COLOR }} />
         </Animated.View>
 
@@ -232,13 +258,29 @@ const TabBar = props => {
           style={{
             position: 'absolute',
             backgroundColor: COLOR,
-            height: HEIGHT_BAR / 2,
+            height: HEIGHT_BAR / 2 + 1,
             bottom: 0,
             left: 0,
             right: 0
           }}
         />
       </View>
+
+      <Animated.View
+        style={{
+          width: SIZE_ICON * 1.5,
+          aspectRatio: 1,
+          borderRadius: (SIZE_ICON * 1.5) / 2,
+          backgroundColor: 'pink',
+          transform: [{ translateX }],
+          position: 'absolute',
+          top: -(SIZE_ICON * 1.5) / 2,
+          left:
+            widthBar -
+            widthBar / totalTab +
+            (widthBar / totalTab - SIZE_ICON * 1.5) / 2
+        }}
+      />
 
       {state.routes.map((route, index) => (
         <TabChild
@@ -253,7 +295,9 @@ const TabBar = props => {
     </View>
   )
 }
+
 const Tab = createBottomTabNavigator()
+
 const tabComponentArr = [
   {
     route: 'screen1',
@@ -284,6 +328,7 @@ const tabComponentArr = [
     component: Screen4
   }
 ]
+
 const MainTab = () => {
   return (
     <Tab.Navigator
