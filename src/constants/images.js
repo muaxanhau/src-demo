@@ -1,5 +1,3 @@
-const Images = {
-  tabBarPiece: require('./../assets/images/tab_bar_piece.png')
-}
+const Images = {}
 
 export default Images

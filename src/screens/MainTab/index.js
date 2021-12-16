@@ -72,6 +72,7 @@ const Screen4 = () => {
 const COLOR = '#C8BFE7'
 const HEIGHT_BAR = 60
 const SIZE_ICON = 30
+const BORDER_RADIUS = 6
 
 const TabChild = ({ descriptors, state, navigation, route, index }) => {
   // constants
@@ -243,14 +244,36 @@ const TabBar = props => {
           }}
         >
           <View style={{ flexGrow: 1, backgroundColor: COLOR }} />
-          <Image
-            source={Images.tabBarPiece}
-            resizeMode='cover'
+          <View
             style={{
-              height: HEIGHT_BAR / 2,
-              width: (HEIGHT_BAR / 2) * (7 / 3)
+              width: HEIGHT_BAR,
+              aspectRatio: 2 / 1,
+              overflow: 'hidden',
+              flexDirection: 'row'
             }}
-          />
+          >
+            <View
+              style={{
+                width: BORDER_RADIUS * 2,
+                height: '100%',
+                backgroundColor: 'red',
+                borderTopRightRadius: BORDER_RADIUS,
+                transform: [{ translateX: -BORDER_RADIUS }]
+              }}
+            />
+            {/* <View
+              style={{
+                width: HEIGHT_BAR * 2,
+                aspectRatio: 1,
+                borderRadius: HEIGHT_BAR,
+                borderWidth: HEIGHT_BAR / 2,
+                borderColor: COLOR,
+                position: 'absolute',
+                top: -HEIGHT_BAR,
+                left: -HEIGHT_BAR / 2
+              }}
+            /> */}
+          </View>
           <View style={{ flexGrow: 1, backgroundColor: COLOR }} />
         </Animated.View>
 
