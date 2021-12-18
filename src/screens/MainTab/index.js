@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   StyleSheet,
@@ -8,8 +8,9 @@ import {
   Animated,
   Easing
 } from 'react-native'
+import { MotiView, MotiImage, MotiText } from 'moti'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Icons, Images, Styles } from './../../constants/index'
+import { Icons, Styles } from './../../constants/index'
 
 const Screen1 = () => {
   return (
@@ -71,7 +72,7 @@ const Screen4 = () => {
 //=======================================
 const COLOR = '#C8BFE7'
 const HEIGHT_BAR = 76
-const SIZE_ICON = 30
+const SIZE_ICON = 25
 const ICON_OFFSET = 3
 const BORDER_RADIUS = 8
 
@@ -90,8 +91,6 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
   const iconFocused = options.tabBarIcon.focused
 
   const isFocused = state.index === index
-
-  const translateY = useRef(new Animated.Value(0)).current
 
   // handles
   const onPress = () => {
@@ -114,30 +113,6 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
     })
   }
 
-  // effect
-  useEffect(() => {
-    isFocused &&
-      Animated.spring(translateY, {
-        toValue: -(
-          HEIGHT_BAR / 2 +
-          (ICON_OFFSET +
-            (HEIGHT_BAR - 2 * BORDER_RADIUS - 2 * ICON_OFFSET - SIZE_ICON) /
-              2) -
-          (HEIGHT_BAR - SIZE_ICON) / 2
-        ),
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }).start()
-    !isFocused &&
-      Animated.timing(translateY, {
-        toValue: 0,
-        duration: 100,
-        easing: Easing.linear,
-        useNativeDriver: true
-      }).start()
-  }, [isFocused])
-
   // render
   return (
     <TouchableOpacity
@@ -150,42 +125,11 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
       style={{ flex: 1 }}
     >
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Animated.Image
-          source={isFocused ? iconFocused : iconNone}
-          resizeMode='cover'
-          style={{
-            position: 'absolute',
-            width: SIZE_ICON,
-            height: SIZE_ICON,
-            transform: [{ translateY }]
-          }}
-        />
-        <Animated.Text
-          style={{
-            color: '#673ab7',
-            transform: [
-              {
-                translateY: translateY.interpolate({
-                  inputRange: [
-                    -(
-                      HEIGHT_BAR / 2 +
-                      (ICON_OFFSET +
-                        (HEIGHT_BAR -
-                          2 * BORDER_RADIUS -
-                          2 * ICON_OFFSET -
-                          SIZE_ICON) /
-                          2) -
-                      (HEIGHT_BAR - SIZE_ICON) / 2
-                    ),
-                    0
-                  ],
-                  outputRange: [HEIGHT_BAR / 4, HEIGHT_BAR]
-                })
-              }
-            ],
-            opacity: translateY.interpolate({
-              inputRange: [
-                -(
+        <MotiImage
+          animate={{
+            scale: isFocused ? 1.2 : 1,
+            translateY: isFocused
+              ? -(
                   HEIGHT_BAR / 2 +
                   (ICON_OFFSET +
                     (HEIGHT_BAR -
@@ -194,33 +138,51 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
                       SIZE_ICON) /
                       2) -
                   (HEIGHT_BAR - SIZE_ICON) / 2
-                ),
-                0
-              ],
-              outputRange: [1, 0]
-            })
+                )
+              : 0
+          }}
+          transition={{
+            type: isFocused ? 'spring' : 'timing',
+            duration: 100
+          }}
+          source={isFocused ? iconFocused : iconNone}
+          resizeMode='cover'
+          style={{
+            position: 'absolute',
+            width: SIZE_ICON,
+            height: SIZE_ICON
+          }}
+        />
+        <MotiText
+          animate={{
+            translateY: isFocused ? HEIGHT_BAR / 5 : HEIGHT_BAR / 2.5,
+            opacity: isFocused ? 1 : 0
+          }}
+          transition={{
+            duration: 100,
+            type: 'timing'
+          }}
+          style={{
+            color: '#673ab7'
           }}
         >
           {label}
-        </Animated.Text>
+        </MotiText>
       </View>
     </TouchableOpacity>
   )
 }
 
-const TabBar = props => {
+const TabBar = ({ state, descriptors, navigation }) => {
   //constants
-  const { state, descriptors, navigation } = props
-
   const widthBar = Styles.width
   const totalTab = Object.keys(descriptors).length
   const [indexFocused, setIndexFocused] = useState(0)
-  const translateX = useRef(new Animated.Value(0)).current
 
   // effects
   useEffect(() => {
     const descriptorsArr = Object.values(descriptors)
-    for (i = 0; i < descriptorsArr.length; i++) {
+    for (let i = 0; i < descriptorsArr.length; i++) {
       const { isFocused } = descriptorsArr[i].navigation
       if (isFocused()) {
         setIndexFocused(prev => (prev = i))
@@ -228,15 +190,6 @@ const TabBar = props => {
       }
     }
   }, [descriptors])
-
-  useEffect(() => {
-    Animated.timing(translateX, {
-      toValue: (totalTab - (indexFocused + 1)) * -(widthBar / totalTab),
-      duration: 100,
-      easing: Easing.linear,
-      useNativeDriver: true
-    }).start()
-  }, [indexFocused])
 
   // render
   return (
@@ -260,13 +213,19 @@ const TabBar = props => {
           overflow: 'hidden'
         }}
       >
-        <Animated.View
+        <MotiView
+          animate={{
+            translateX: (totalTab - (indexFocused + 1)) * -(widthBar / totalTab)
+          }}
+          transition={{
+            type: 'timing',
+            duration: 150
+          }}
           style={{
             position: 'absolute',
             flexDirection: 'row',
             height: HEIGHT_BAR / 2,
             width: widthBar * 2 - widthBar / totalTab,
-            transform: [{ translateX }],
             top: 0,
             left: 0
           }}
@@ -328,7 +287,7 @@ const TabBar = props => {
             </View>
           </View>
           <View style={{ flexGrow: 1, backgroundColor: COLOR }} />
-        </Animated.View>
+        </MotiView>
 
         <View
           style={{
@@ -342,13 +301,19 @@ const TabBar = props => {
         />
       </View>
 
-      <Animated.View
+      <MotiView
+        animate={{
+          translateX: (totalTab - (indexFocused + 1)) * -(widthBar / totalTab)
+        }}
+        transition={{
+          type: 'timing',
+          duration: 150
+        }}
         style={{
           width: HEIGHT_BAR - BORDER_RADIUS * 2 - ICON_OFFSET * 2,
           aspectRatio: 1,
           borderRadius: (HEIGHT_BAR - BORDER_RADIUS * 2 - ICON_OFFSET * 2) / 2,
           backgroundColor: 'pink',
-          transform: [{ translateX }],
           position: 'absolute',
           bottom: HEIGHT_BAR / 2 + ICON_OFFSET,
           left:
