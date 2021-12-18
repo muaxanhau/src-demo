@@ -4,6 +4,7 @@ import { Screen1, Screen2, Screen3, Screen4 } from './elements'
 const screenOptions = {
   headerShown: false
 }
+
 const detailScreensData = [
   {
     route: 'screen1',

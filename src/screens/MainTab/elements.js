@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { MotiView, MotiImage, MotiText } from 'moti'
 import { Styles } from '../../constants/index'
 
@@ -63,11 +63,12 @@ const Screen4 = () => {
 //=======================================
 
 const BACKGROUND_COLOR = '#C8BFE7'
-const HEIGHT_BAR = 60
-const HEIGHT_HALF_CIRCLE_BAR = 45 // < HEIGHT_BAR
-const SIZE_ICON = 25
+const HEIGHT_BAR = 65
+const HEIGHT_HALF_CIRCLE_BAR = 46 // < HEIGHT_BAR
+const SIZE_ICON = 40
 const OFFSET_ICON = 5
 const BORDER_RADIUS_BAR = 15
+const FONT_SIZE_BAR = 15
 
 const TabChild = ({ descriptors, state, navigation, route, index }) => {
   // constants
@@ -117,21 +118,18 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
       onLongPress={onLongPress}
       style={{ flex: 1 }}
     >
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <MotiImage
           animate={{
-            scale: isFocused ? 1.2 : 1,
+            scale: isFocused ? 0.6 : 1,
             translateY: isFocused
-              ? -(
-                  HEIGHT_BAR / 2 +
-                  (OFFSET_ICON +
-                    (HEIGHT_BAR -
-                      2 * BORDER_RADIUS_BAR -
-                      2 * OFFSET_ICON -
-                      SIZE_ICON) /
-                      2) -
-                  (HEIGHT_BAR - SIZE_ICON) / 2
-                )
+              ? HEIGHT_BAR / 2 - HEIGHT_BAR + BORDER_RADIUS_BAR
               : 0
           }}
           transition={{
@@ -146,17 +144,26 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
             height: SIZE_ICON
           }}
         />
+
         <MotiText
           animate={{
-            translateY: isFocused ? HEIGHT_BAR / 5 : HEIGHT_BAR / 2.5,
+            translateY: isFocused
+              ? -(HEIGHT_BAR - HEIGHT_HALF_CIRCLE_BAR - (FONT_SIZE_BAR + 4)) / 2
+              : FONT_SIZE_BAR + 4,
             opacity: isFocused ? 1 : 0
           }}
           transition={{
-            duration: 100,
-            type: 'timing'
+            type: 'timing',
+            duration: 500,
+            opacity: {
+              duration: 250
+            }
           }}
           style={{
-            color: '#673ab7'
+            position: 'absolute',
+            color: '#673ab7',
+            fontSize: FONT_SIZE_BAR,
+            bottom: 0
           }}
         >
           {label}
