@@ -70,9 +70,10 @@ const Screen4 = () => {
 
 //=======================================
 const COLOR = '#C8BFE7'
-const HEIGHT_BAR = 60
+const HEIGHT_BAR = 76
 const SIZE_ICON = 30
-const BORDER_RADIUS = 6
+const ICON_OFFSET = 3
+const BORDER_RADIUS = 8
 
 const TabChild = ({ descriptors, state, navigation, route, index }) => {
   // constants
@@ -117,7 +118,13 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
   useEffect(() => {
     isFocused &&
       Animated.spring(translateY, {
-        toValue: -((HEIGHT_BAR - SIZE_ICON) / 2 + SIZE_ICON / 2),
+        toValue: -(
+          HEIGHT_BAR / 2 +
+          (ICON_OFFSET +
+            (HEIGHT_BAR - 2 * BORDER_RADIUS - 2 * ICON_OFFSET - SIZE_ICON) /
+              2) -
+          (HEIGHT_BAR - SIZE_ICON) / 2
+        ),
         duration: 100,
         easing: Easing.linear,
         useNativeDriver: true
@@ -160,7 +167,16 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
               {
                 translateY: translateY.interpolate({
                   inputRange: [
-                    -((HEIGHT_BAR - SIZE_ICON) / 2 + SIZE_ICON / 2),
+                    -(
+                      HEIGHT_BAR / 2 +
+                      (ICON_OFFSET +
+                        (HEIGHT_BAR -
+                          2 * BORDER_RADIUS -
+                          2 * ICON_OFFSET -
+                          SIZE_ICON) /
+                          2) -
+                      (HEIGHT_BAR - SIZE_ICON) / 2
+                    ),
                     0
                   ],
                   outputRange: [HEIGHT_BAR / 4, HEIGHT_BAR]
@@ -168,7 +184,19 @@ const TabChild = ({ descriptors, state, navigation, route, index }) => {
               }
             ],
             opacity: translateY.interpolate({
-              inputRange: [-((HEIGHT_BAR - SIZE_ICON) / 2 + SIZE_ICON / 2), 0],
+              inputRange: [
+                -(
+                  HEIGHT_BAR / 2 +
+                  (ICON_OFFSET +
+                    (HEIGHT_BAR -
+                      2 * BORDER_RADIUS -
+                      2 * ICON_OFFSET -
+                      SIZE_ICON) /
+                      2) -
+                  (HEIGHT_BAR - SIZE_ICON) / 2
+                ),
+                0
+              ],
               outputRange: [1, 0]
             })
           }}
@@ -234,11 +262,11 @@ const TabBar = props => {
       >
         <Animated.View
           style={{
+            position: 'absolute',
             flexDirection: 'row',
             height: HEIGHT_BAR / 2,
             width: widthBar * 2 - widthBar / totalTab,
             transform: [{ translateX }],
-            position: 'absolute',
             top: 0,
             left: 0
           }}
@@ -249,30 +277,55 @@ const TabBar = props => {
               width: HEIGHT_BAR,
               aspectRatio: 2 / 1,
               overflow: 'hidden',
-              flexDirection: 'row'
+              flexDirection: 'row',
+              zIndex: 10
             }}
           >
             <View
               style={{
+                position: 'absolute',
                 width: BORDER_RADIUS * 2,
                 height: '100%',
-                backgroundColor: 'red',
+                backgroundColor: COLOR,
                 borderTopRightRadius: BORDER_RADIUS,
-                transform: [{ translateX: -BORDER_RADIUS }]
+                left: -BORDER_RADIUS,
+                zIndex: 10
               }}
             />
-            {/* <View
+            <View
               style={{
-                width: HEIGHT_BAR * 2,
-                aspectRatio: 1,
-                borderRadius: HEIGHT_BAR,
-                borderWidth: HEIGHT_BAR / 2,
-                borderColor: COLOR,
                 position: 'absolute',
-                top: -HEIGHT_BAR,
-                left: -HEIGHT_BAR / 2
+                width: BORDER_RADIUS * 2,
+                height: '100%',
+                backgroundColor: COLOR,
+                borderTopLeftRadius: BORDER_RADIUS,
+                right: -BORDER_RADIUS,
+                zIndex: 10
               }}
-            /> */}
+            />
+            <View
+              style={{
+                position: 'relative',
+                width: HEIGHT_BAR - BORDER_RADIUS * 2,
+                aspectRatio: 2 / 1,
+                top: BORDER_RADIUS,
+                left: BORDER_RADIUS,
+                overflow: 'hidden'
+              }}
+            >
+              <View
+                style={{
+                  position: 'absolute',
+                  width: (HEIGHT_BAR - BORDER_RADIUS * 2) * 2,
+                  aspectRatio: 1,
+                  borderRadius: HEIGHT_BAR - BORDER_RADIUS * 2,
+                  borderWidth: (HEIGHT_BAR - BORDER_RADIUS * 2) / 2,
+                  top: -(HEIGHT_BAR - BORDER_RADIUS * 2),
+                  left: -(HEIGHT_BAR - BORDER_RADIUS * 2) / 2,
+                  borderColor: COLOR
+                }}
+              />
+            </View>
           </View>
           <View style={{ flexGrow: 1, backgroundColor: COLOR }} />
         </Animated.View>
@@ -281,7 +334,7 @@ const TabBar = props => {
           style={{
             position: 'absolute',
             backgroundColor: COLOR,
-            height: HEIGHT_BAR / 2 + 1,
+            height: HEIGHT_BAR / 2,
             bottom: 0,
             left: 0,
             right: 0
@@ -291,17 +344,19 @@ const TabBar = props => {
 
       <Animated.View
         style={{
-          width: SIZE_ICON * 1.5,
+          width: HEIGHT_BAR - BORDER_RADIUS * 2 - ICON_OFFSET * 2,
           aspectRatio: 1,
-          borderRadius: (SIZE_ICON * 1.5) / 2,
+          borderRadius: (HEIGHT_BAR - BORDER_RADIUS * 2 - ICON_OFFSET * 2) / 2,
           backgroundColor: 'pink',
           transform: [{ translateX }],
           position: 'absolute',
-          top: -(SIZE_ICON * 1.5) / 2,
+          bottom: HEIGHT_BAR / 2 + ICON_OFFSET,
           left:
             widthBar -
             widthBar / totalTab +
-            (widthBar / totalTab - SIZE_ICON * 1.5) / 2
+            (widthBar / totalTab -
+              (HEIGHT_BAR - BORDER_RADIUS * 2 - ICON_OFFSET * 2)) /
+              2
         }}
       />
 
