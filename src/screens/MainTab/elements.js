@@ -63,7 +63,7 @@ const Screen4 = () => {
 //=======================================
 
 const BACKGROUND_COLOR = '#C8BFE7'
-const HEIGHT_BAR = 65
+const HEIGHT_BAR = 75
 const HEIGHT_HALF_CIRCLE_BAR = 46 // < HEIGHT_BAR
 const SIZE_ICON = 40
 const OFFSET_ICON = 5

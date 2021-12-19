@@ -1,10 +1,10 @@
-import { Dimensions, StatusBar } from 'react-native'
+import { Dimensions, StatusBar, Platform } from 'react-native'
 
 const { width, height } = Dimensions.get('window')
 
 const rootStyles = {
   statusBar: {
-    height: StatusBar.currentHeight
+    height: Platform.OS === 'ios' ? StatusBar.currentHeight || 42 : 0
   },
   screen: {
     width,

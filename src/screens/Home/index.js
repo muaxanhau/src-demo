@@ -1,12 +1,9 @@
 import React from 'react'
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { NameScreen } from './../../constants/index'
 import { useDispatch } from 'react-redux'
 import { actions } from './../../features/index'
-
-// constants
 
 // main
 const Home = () => {
@@ -14,8 +11,6 @@ const Home = () => {
   const navigation = useNavigation()
   const { authenticationActions } = actions
   const dispatch = useDispatch()
-
-  // effects
 
   // handles
   const handleLogin = () => {
@@ -36,7 +31,6 @@ const Home = () => {
   // render
   return (
     <View style={styles.container}>
-      {/* <StatusBar style='dark' /> */}
       <Text style={{ fontSize: 30 }}>Home</Text>
 
       <TouchableOpacity onPress={handleLogin} style={{ marginTop: 30 }}>
