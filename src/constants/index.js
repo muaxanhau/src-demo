@@ -4,7 +4,7 @@ import DefaultValues from './defaultValues'
 import DummyData from './dummyData'
 import Icons from './icons'
 import Images from './images'
-import NameScreen from './nameScreen'
+import Screens from './sceens'
 import Strings from './strings'
 import Styles from './styles'
 
@@ -15,7 +15,7 @@ export {
   DummyData,
   Icons,
   Images,
-  NameScreen,
+  Screens,
   Strings,
   Styles
 }

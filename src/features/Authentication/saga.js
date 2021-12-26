@@ -1,6 +1,7 @@
 import { all, delay, fork, put, takeLeading } from 'redux-saga/effects'
 import { authenticationActions } from './slice'
 import { globalLoaderActions } from './../GlobalLoader/slice'
+import { AsyncStorages } from './../../utils'
 
 // =========================================================================
 function * workLogin (action) {
@@ -8,6 +9,7 @@ function * workLogin (action) {
 
   console.log(action.payload.data)
   yield delay(2000)
+  AsyncStorages.Token.set('1234567')
   action.payload.callback?.onSuccess?.()
 
   yield put(globalLoaderActions.disable())

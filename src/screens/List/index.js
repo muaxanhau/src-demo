@@ -8,14 +8,14 @@ import {
   TouchableWithoutFeedback,
   Platform
 } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
 import { useNavigation } from '@react-navigation/native'
-import { DummyData, NameScreen, Styles } from '../../constants/index'
+import { Screens } from './../../constants'
+import { DummyData, Styles } from '../../constants'
 import { Swipeable } from 'react-native-gesture-handler'
 
 // constants
 const {
-  statusBarHeight,
+  safeAreaTop,
   padding,
   paddingHorizontal,
   paddingVertical,
@@ -39,7 +39,6 @@ const List = () => {
   // render
   return (
     <>
-      <StatusBar hidden={true} />
       <View style={{ flex: 1 }}>
         <Animated.FlatList
           onScroll={Animated.event(
@@ -58,7 +57,7 @@ const List = () => {
           keyExtractor={(_, index) => index.toString()}
           contentContainerStyle={{
             paddingTop:
-              statusBarHeight + (Platform.OS === 'ios' ? 0 : paddingVertical)
+              safeAreaTop + (Platform.OS === 'ios' ? 0 : paddingVertical)
           }}
           snapToInterval={HEIGHT_ITEM + itemSpacing}
           onScrollBeginDrag={event => {
@@ -79,7 +78,7 @@ const List = () => {
 
             return (
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate(NameScreen.detail)}
+                onPress={() => navigation.navigate(Screens.detail)}
               >
                 <View>
                   <Swipeable
@@ -182,10 +181,7 @@ const List = () => {
               style={{
                 height:
                   height -
-                  (HEIGHT_ITEM +
-                    itemSpacing +
-                    paddingVertical +
-                    statusBarHeight)
+                  (HEIGHT_ITEM + itemSpacing + paddingVertical + safeAreaTop)
               }}
             ></View>
           )}

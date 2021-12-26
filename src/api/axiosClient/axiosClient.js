@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ApiRoutes } from './../../constants/index'
+import { ApiRoutes } from './../../constants'
 
 const AxiosClient = axios.create({
   defaults: {

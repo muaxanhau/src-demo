@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { actions } from './../../features/index'
+import { actions } from './../../features'
+import { SafeAreaLayout } from '../../components'
+import { AsyncStorages } from './../../utils'
+import { useNavigation } from '@react-navigation/native'
+import { Screens } from './../../constants'
 
 // main
 const Detail = () => {
   // constants
+  const navigation = useNavigation()
   const { callPureApiActions } = actions
   const dispatch = useDispatch()
 
@@ -41,12 +46,30 @@ const Detail = () => {
 
   // render
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>detail</Text>
-    </View>
+    <SafeAreaLayout top={true} bottom={true} hiddenStatusBar={false}>
+      <View
+        style={{
+          flex: 1,
+          // justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'cyan'
+        }}
+      >
+        <Text>detail</Text>
+        <TouchableOpacity
+          style={{ padding: 10, backgroundColor: 'purple' }}
+          onPress={() => {
+            console.log('log out nè')
+            AsyncStorages.Token.remove().then(() => {
+              navigation.popToTop()
+            })
+          }}
+        >
+          <Text style={{ textAlign: 'center' }}>Log out</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaLayout>
   )
 }
-
-const styles = StyleSheet.create({})
 
 export default Detail

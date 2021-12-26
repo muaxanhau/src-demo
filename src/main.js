@@ -1,7 +1,7 @@
 import React from 'react'
-import AppProvider from './app/index'
-import AppNavigator from './navigation/index'
-import { views } from './features/index'
+import AppProvider from './app'
+import AppNavigator from './navigation'
+import { views } from './features'
 
 const Main = () => {
   // constants

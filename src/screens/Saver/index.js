@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { StyleSheet, View, Text, Easing, Animated } from 'react-native'
-import { Styles } from '../../constants/index'
+import { Styles } from '../../constants'
 
 // contants
 const { padding, width, height } = Styles

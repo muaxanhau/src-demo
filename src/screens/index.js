@@ -1,8 +1,8 @@
-import Detail from './Detail/index'
-import Home from './Home/index'
-import List from './List/index'
-import Saver from './Saver/index'
-import Screen3 from './Screen3/index'
-import MainTab from './MainTab/index'
+import Detail from './Detail'
+import Home from './Home'
+import List from './List'
+import Saver from './Saver'
+import Screen3 from './Screen3'
+import MainTab from './MainTab'
 
 export { Detail, Home, List, Saver, Screen3, MainTab }

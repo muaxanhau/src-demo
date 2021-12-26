@@ -1,4 +1,4 @@
-import { Icons } from './../../constants/index'
+import { Icons } from './../../constants'
 import { Screen1, Screen2, Screen3, Screen4 } from './elements'
 
 const screenOptions = {

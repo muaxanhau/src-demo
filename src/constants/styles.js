@@ -3,8 +3,9 @@ import { Dimensions, StatusBar, Platform } from 'react-native'
 const { width, height } = Dimensions.get('window')
 
 const rootStyles = {
-  statusBar: {
-    height: Platform.OS === 'ios' ? StatusBar.currentHeight || 42 : 0
+  safeArea: {
+    top: Platform.OS === 'ios' ? StatusBar.currentHeight || 42 : 0,
+    bottom: Platform.OS === 'ios' ? 22 : 0
   },
   screen: {
     width,
@@ -49,7 +50,8 @@ const rootStyles = {
 }
 
 const Styles = {
-  statusBarHeight: rootStyles.statusBar.height,
+  safeAreaTop: rootStyles.safeArea.top,
+  safeAreaBottom: rootStyles.safeArea.bottom,
   width: rootStyles.screen.width,
   height: rootStyles.screen.height,
   padding: rootStyles.padding.all,

@@ -1,5 +1,5 @@
 // global loader
-import GlobalLoader from './GlobalLoader/index'
+import GlobalLoader from './GlobalLoader'
 import globalLoaderReducer, {
   globalLoaderState,
   globalLoaderActions

@@ -94,6 +94,4 @@ const Screen3 = () => {
   )
 }
 
-const styles = StyleSheet.create({})
-
 export default Screen3

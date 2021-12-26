@@ -1,5 +1,5 @@
 import AxiosClient from './../axiosClient/axiosClient'
-import { ApiRoutes } from './../../constants/index'
+import { ApiRoutes } from './../../constants'
 
 // constants
 const apiClient = ({ url = '', config = {} }) => AxiosClient.get(url, config)

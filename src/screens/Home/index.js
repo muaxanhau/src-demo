@@ -1,9 +1,10 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { NameScreen } from './../../constants/index'
+import { Screens } from './../../constants'
 import { useDispatch } from 'react-redux'
-import { actions } from './../../features/index'
+import { actions } from './../../features'
+import { AsyncStorages } from './../../utils'
 
 // main
 const Home = () => {
@@ -12,6 +13,13 @@ const Home = () => {
   const { authenticationActions } = actions
   const dispatch = useDispatch()
 
+  // effects
+  React.useLayoutEffect(() => {
+    AsyncStorages.Token.get().then(value => {
+      !!value && navigation.push(Screens.list)
+    })
+  })
+
   // handles
   const handleLogin = () => {
     dispatch(
@@ -19,7 +27,7 @@ const Home = () => {
         data: { username: 'thinh', password: '123456' },
         callback: {
           onSuccess: response => {
-            navigation.navigate(NameScreen.list)
+            navigation.push(Screens.list)
           },
           onError: error => {},
           onFinally: () => {}
@@ -38,21 +46,21 @@ const Home = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate(NameScreen.saver)}
+        onPress={() => navigation.navigate(Screens.saver)}
         style={{ marginTop: 30 }}
       >
         <Text>Saver</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate(NameScreen.screen3)}
+        onPress={() => navigation.navigate(Screens.screen3)}
         style={{ marginTop: 30 }}
       >
         <Text>Test Carousel</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate(NameScreen.mainTab)}
+        onPress={() => navigation.navigate(Screens.mainTab)}
         style={{ marginTop: 30 }}
       >
         <Text>Main Tab</Text>
