@@ -1,1 +1,3 @@
-export default Commons = {}
+const Commons = {}
+
+export default Commons

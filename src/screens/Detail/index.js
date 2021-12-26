@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux'
-import { actions } from './../../features'
+import { NameStorageKeys } from './../../constants'
 import { SafeAreaLayout } from '../../components'
 import { AsyncStorages } from './../../utils'
+import { useDispatch } from 'react-redux'
+import { actions } from './../../features'
 import { useNavigation } from '@react-navigation/native'
-import { Screens } from './../../constants'
+
 
 // main
 const Detail = () => {
@@ -60,7 +61,7 @@ const Detail = () => {
           style={{ padding: 10, backgroundColor: 'purple' }}
           onPress={() => {
             console.log('log out nè')
-            AsyncStorages.Token.remove().then(() => {
+            AsyncStorages.removeItem(NameStorageKeys.token).then(() => {
               navigation.popToTop()
             })
           }}

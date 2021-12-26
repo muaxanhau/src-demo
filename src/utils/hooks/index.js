@@ -1,1 +1,3 @@
-export default Hooks = {}
+const Hooks = {}
+
+export default Hooks

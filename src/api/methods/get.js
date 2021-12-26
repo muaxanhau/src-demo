@@ -1,22 +1,13 @@
-import AxiosClient from './../axiosClient/axiosClient'
-import { ApiRoutes } from './../../constants'
+import AxiosClient from '../axiosClient'
 
-// constants
-const apiClient = ({ url = '', config = {} }) => AxiosClient.get(url, config)
-const routeGet = ApiRoutes.get
-
-// main
-const Get = {
-  example: (params = {}) => {
-    const url = routeGet.example
-    const config = {
-      headers: {
-        Authorization: ''
-      },
-      params
-    }
-    return apiClient({ url, config })
+const Get = ({ url, params = {} }) => {
+  const config = {
+    headers: {
+      Authorization: ''
+    },
+    params
   }
+  return AxiosClient.get({ url, config })
 }
 
 export default Get

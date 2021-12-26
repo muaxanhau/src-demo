@@ -9,7 +9,7 @@ import {
   Platform
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { Screens } from './../../constants'
+import { NameScreens } from './../../constants'
 import { DummyData, Styles } from '../../constants'
 import { Swipeable } from 'react-native-gesture-handler'
 
@@ -78,7 +78,7 @@ const List = () => {
 
             return (
               <TouchableWithoutFeedback
-                onPress={() => navigation.navigate(Screens.detail)}
+                onPress={() => navigation.navigate(NameScreens.detail)}
               >
                 <View>
                   <Swipeable

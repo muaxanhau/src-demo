@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ApiRoutes } from './../../constants'
+import { ApiRoutes } from '../../constants'
 
 const AxiosClient = axios.create({
   defaults: {
@@ -9,7 +9,7 @@ const AxiosClient = axios.create({
         'Content-Type': 'application/json'
       },
       post: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        // 'Content-Type': 'application/x-www-form-urlencoded'
       }
     }
   }

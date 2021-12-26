@@ -7,7 +7,6 @@ const ApiRoutes = {
   },
   post: {},
   put: {},
-  patch: {},
   delete: {}
 }
 

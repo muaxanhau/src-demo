@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { Screens } from './../../constants'
+import { NameScreens, NameStorageKeys } from './../../constants'
+import { AsyncStorages } from './../../utils'
 import { useDispatch } from 'react-redux'
 import { actions } from './../../features'
-import { AsyncStorages } from './../../utils'
+import { useNavigation } from '@react-navigation/native'
 
 // main
 const Home = () => {
@@ -15,8 +15,8 @@ const Home = () => {
 
   // effects
   React.useLayoutEffect(() => {
-    AsyncStorages.Token.get().then(value => {
-      !!value && navigation.push(Screens.list)
+    AsyncStorages.getItem(NameStorageKeys.token).then(value => {
+      !!value && navigation.push(NameScreens.list)
     })
   })
 
@@ -27,10 +27,10 @@ const Home = () => {
         data: { username: 'thinh', password: '123456' },
         callback: {
           onSuccess: response => {
-            navigation.push(Screens.list)
+            navigation.push(NameScreens.list)
           },
-          onError: error => {},
-          onFinally: () => {}
+          onError: error => { },
+          onFinally: () => { }
         }
       })
     )
@@ -46,21 +46,21 @@ const Home = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate(Screens.saver)}
+        onPress={() => navigation.navigate(NameScreens.saver)}
         style={{ marginTop: 30 }}
       >
         <Text>Saver</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate(Screens.screen3)}
+        onPress={() => navigation.navigate(NameScreens.screen3)}
         style={{ marginTop: 30 }}
       >
         <Text>Test Carousel</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate(Screens.mainTab)}
+        onPress={() => navigation.navigate(NameScreens.mainTab)}
         style={{ marginTop: 30 }}
       >
         <Text>Main Tab</Text>
