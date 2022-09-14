@@ -71,7 +71,7 @@ const Styles = {
   borderWidthLarge: rootStyles.border.width.large,
   borderRadius: rootStyles.border.radius.normal,
   borderRadiusMedium: rootStyles.border.radius.medium,
-  borderRadiusLarge: rootStyles.border.radius.Large,
+  borderRadiusLarge: rootStyles.border.radius.large,
   //=============================================
   textStyles: {
     fontSize: rootStyles.font.size.normal,
